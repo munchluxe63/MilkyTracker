@@ -513,6 +513,21 @@ processOthers:
 				}
 		}
 	}
+	else if (event->getID() == eKeyChar)
+	{
+		if (recorderLogic->getRecordMode())
+		{
+			getPatternEditorControl()->dispatchEvent(event);
+			event->cancel();
+		}
+		// if recordMode is false and focus is on pattern editor
+		// we need to cancel the event in order to prevent it
+		// from going into the pattern editor
+		else if (screen->getFocusedControl() == static_cast<PPControl*>(getPatternEditorControl()))
+		{
+			event->cancel();
+		}
+	}
 	else if (event->getID() == eKeyUp)
 	{
 		pp_uint16 keyCode = *((pp_uint16*)event->getDataPtr());
