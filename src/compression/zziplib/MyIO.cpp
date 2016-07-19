@@ -48,7 +48,7 @@ zzip_ssize_t Myread(int fd, void *buffer, zzip_size_t count)
 	if (fd == -1)
 		return -1;
 
-	return reinterpret_cast<XMFile*>(fd)->read(buffer, 1, static_cast<mp_sint32> (count));
+	return file_table[fd]->read(buffer, 1, static_cast<mp_sint32> (count));
 }
 
 zzip_off_t Mylseek(int fd, zzip_off_t offset, int origin)
@@ -63,8 +63,8 @@ zzip_off_t Mylseek(int fd, zzip_off_t offset, int origin)
 	else if (origin == SEEK_END)
 		moveMethod = XMFile::SeekOffsetTypeEnd;
 
-	reinterpret_cast<XMFile*>(fd)->seek(static_cast<mp_sint32> (offset), moveMethod);
-	return reinterpret_cast<XMFile*>(fd)->pos();
+	file_table[fd]->seek(offset, moveMethod);
+	return file_table[fd]->pos();
 }
 
 zzip_off_t Myfsize(int fd)
