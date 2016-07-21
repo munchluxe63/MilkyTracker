@@ -50,6 +50,8 @@
 find_package(PkgConfig QUIET)
 pkg_check_modules(PC_SDL2 QUIET sdl2)
 
+# Search with hints first, to prefer directories found by pkg_check_modules
+# over the default paths
 find_path(SDL2_INCLUDE_DIR
   NAMES SDL.h
   HINTS
@@ -59,6 +61,12 @@ find_path(SDL2_INCLUDE_DIR
   NO_DEFAULT_PATH
 )
 
+# If not found, search again including default paths
+find_path(SDL2_INCLUDE_DIR
+  NAMES SDL.h
+  PATH_SUFFIXES SDL2
+)
+
 find_library(SDL2_LIBRARY
   NAMES SDL2
   HINTS
@@ -66,6 +74,11 @@ find_library(SDL2_LIBRARY
     ${PC_SDL2_LIBRARY_DIRS}
   PATH_SUFFIXES x64 x86
   NO_DEFAULT_PATH
+)
+
+find_library(SDL2_LIBRARY
+  NAMES SDL2
+  PATH_SUFFIXES x64 x86
 )
 
 if(NOT SDL2_BUILDING_LIBRARY)
