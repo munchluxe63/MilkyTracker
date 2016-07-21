@@ -28,6 +28,8 @@ if(FORCESDL)
     unset(APPLE)
     unset(WIN32)
     add_definitions(-D__FORCE_SDL_AUDIO__)
+    # Frameworks not supported by findSDL2.cmake
+    set(CMAKE_FIND_FRAMEWORK NEVER)
 endif()
 
 # Lowercase project name for binaries and packaging
