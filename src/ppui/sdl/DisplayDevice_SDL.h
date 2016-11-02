@@ -77,6 +77,10 @@ public:
 	void transformInverse(pp_int32& x, pp_int32& y);
 	void transformInverse(PPRect& r);
 
+#ifdef __GCW__
+	virtual void update_cursor(void);
+#endif
+
 	Orientations getOrientation() { return orientation; }
 	
 	SDL_Window* getWindow();

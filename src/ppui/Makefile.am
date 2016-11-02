@@ -24,12 +24,15 @@ ScanCodes.h Screen.h ScrollBar.h Seperator.h SimpleVector.h Singleton.h \
 Slider.h StaticText.h Tools.h TransparentContainer.h UndoStack.h VirtualKeys.h \
 fastfill.h sdl/DisplayDeviceFB_SDL.h sdl/DisplayDevice_SDL.h
 
+#gcw
+#noinst_LDADD = -lSDL2_image
+
 AM_CPPFLAGS = -I$(top_srcdir)/src/ppui/osinterface \
 -I$(top_srcdir)/src/ppui/osinterface/posix -I$(top_srcdir)/src/ppui/sdl
 
 # Add -D__OPENGL__ here if you want experimental opengl gfx (make clean
 # probably required)
-AM_CPPFLAGS += ${SDL_CFLAGS} -DMILKYTRACKER -D__LINUX__ -D__THREADTIMER__
+AM_CPPFLAGS += ${SDL_CFLAGS} -DMILKYTRACKER -D__LINUX__ -D__THREADTIMER__ -D__GCW__ -D__LOWRES__
 
 EXTRA_DIST = carbon/DisplayDevice_CARBON.cpp \
 carbon/DisplayDevice_CARBON.h Graphics_OGL.cpp Graphics_OGL.h \

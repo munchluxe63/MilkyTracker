@@ -30,6 +30,9 @@
 
 #include "DisplayDeviceFB_SDL.h"
 #include "Graphics.h"
+#ifdef __GCW__
+#include <SDL_image.h>
+#endif
 
 PPDisplayDeviceFB::PPDisplayDeviceFB(pp_int32 width,
 									 pp_int32 height, 
@@ -167,6 +170,10 @@ PPDisplayDeviceFB::PPDisplayDeviceFB(pp_int32 width,
 	}
 	
 	currentGraphics->lock = true;
+#ifdef __GCW__
+	gcwcursor = IMG_Load("cursor.png");
+	gcwcursortexture = SDL_CreateTextureFromSurface(theRenderer,gcwcursor);
+#endif
 }
 
 PPDisplayDeviceFB::~PPDisplayDeviceFB()
@@ -222,8 +229,18 @@ void PPDisplayDeviceFB::update()
 	SDL_UpdateTexture(theTexture, NULL, theSurface->pixels, theSurface->pitch);
 	SDL_RenderClear(theRenderer);
 	SDL_RenderCopy(theRenderer, theTexture, NULL, NULL);
+#ifdef __GCW__
+	SDL_GetMouseState(&gcwcursorrect.x,&gcwcursorrect.y);
+	SDL_RenderCopy(theRenderer,gcwcursortexture,NULL,&gcwcursorrect);
+#endif
 	SDL_RenderPresent(theRenderer);
 }
+
+#ifdef __GCW__
+void PPDisplayDeviceFB::update_cursor(void){
+	update(PPRect(gcwcursorrect.x, gcwcursorrect.y, gcwcursorrect.x+gcwcursorrect.w, gcwcursorrect.y+gcwcursorrect.h));
+}
+#endif
 
 void PPDisplayDeviceFB::update(const PPRect& r)
 {
@@ -251,6 +268,10 @@ void PPDisplayDeviceFB::update(const PPRect& r)
 	SDL_UpdateTexture(theTexture, &r3, surfaceOffset, theSurface->pitch);
 	SDL_RenderClear(theRenderer);
 	SDL_RenderCopy(theRenderer, theTexture, NULL, NULL);
+#ifdef __GCW__
+	SDL_GetMouseState(&gcwcursorrect.x,&gcwcursorrect.y);
+	SDL_RenderCopy(theRenderer,gcwcursortexture,NULL,&gcwcursorrect);
+#endif
 	SDL_RenderPresent(theRenderer);
 }
 

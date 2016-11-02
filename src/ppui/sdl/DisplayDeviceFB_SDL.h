@@ -62,10 +62,18 @@ public:
 
 	void update();
 	void update(const PPRect& r);
+#ifdef __GCW__
+	void update_cursor(void);
+#endif
 protected:
 	SDL_Surface* theSurface;
 	SDL_Texture* theTexture;
 	SDL_Renderer* theRenderer;
+#ifdef __GCW__
+	SDL_Surface* gcwcursor;
+	SDL_Texture* gcwcursortexture;
+	SDL_Rect gcwcursorrect={0,0,16,16};
+#endif
 };
 
 #endif

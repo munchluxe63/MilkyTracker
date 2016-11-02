@@ -173,6 +173,11 @@ public:
 	{
 	}
 
+#ifdef __GCW__
+	virtual void update_cursor(void){
+	}
+#endif
+
 	void enable(bool b) 
 	{
 		if (!b)

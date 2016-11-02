@@ -48,7 +48,7 @@ TabHeaderControl.h TabManager.h TabTitleProvider.h TitlePageManager.h \
 TitlePageManager.h ToolInvokeHelper.h Tracker.h TrackerConfig.h \
 TrackerSettingsDatabase.h Undo.h VRand.h Zapper.h sdl/SDL_KeyTranslation.h
 
-AM_CPPFLAGS = -DMILKYTRACKER -D__THREADTIMER__ -D__LINUX__ ${SDL_CFLAGS}
+AM_CPPFLAGS = -DMILKYTRACKER -D__THREADTIMER__ -D__LINUX__ -D__GCW__ -D__LOWRES__ ${SDL_CFLAGS}
 
 AM_CPPFLAGS += -I$(top_srcdir)/src/${RTMIDI_DIR} -I$(top_srcdir)/src/compression \
 -I$(top_srcdir)/src/fx -I$(top_srcdir)/src/milkyplay -I$(top_srcdir)/src/ppui \
@@ -74,7 +74,7 @@ milkytracker_LDADD = $(top_builddir)/src/milkyplay/libmilkyplay.a \
 $(top_builddir)/src/ppui/osinterface/libosinterface.a \
 $(top_builddir)/src/ppui/libppui.a \
 $(top_builddir)/src/ppui/osinterface/libosinterface.a \
-$(top_builddir)/src/fx/libfx.a $(compressionLib) $(RTMIDI) $(SDL_LIBS) \
+$(top_builddir)/src/fx/libfx.a $(compressionLib) $(RTMIDI) $(SDL_LIBS) -lSDL2_image \
 $(top_builddir)/src/compression/zziplib/generic/libzzip.a \
 $(Z_LIBS) ${ALSA_LIBS}
 #$(ZZIP_LIBS) read below

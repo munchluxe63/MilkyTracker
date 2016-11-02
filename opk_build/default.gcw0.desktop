@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=MilkyTracker__
+Comment=Fast Tracker II inspired music tracker
+Exec=start.sh
+Icon=icon
+Categories=applications;
+X-OD-NeedsDownscaling=true

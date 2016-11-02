@@ -170,6 +170,12 @@ void PPDisplayDevice::setTitle(const PPSystemString& title)
 	SDL_SetWindowTitle(theWindow, title);
 }
 
+#ifdef __GCW__
+void PPDisplayDevice::update_cursor(void){
+	return;
+}
+#endif
+
 bool PPDisplayDevice::goFullScreen(bool b)
 {
 	// In X11, this will make MilkyTracker go fullscreen at the selected

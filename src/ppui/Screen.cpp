@@ -90,8 +90,10 @@ void PPScreen::adjustEventMouseCoordinates(PPEvent* event)
 
 void PPScreen::raiseEvent(PPEvent* event)
 {
-	if (event->isMouseEvent())
+	if (event->isMouseEvent()){
 		adjustEventMouseCoordinates(event);
+		displayDevice->update_cursor();
+	}
 
 	// route events to event listener first
 	eventListener->handleEvent(reinterpret_cast<PPObject*>(this), event);
